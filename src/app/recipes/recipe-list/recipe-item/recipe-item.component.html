@@ -1,0 +1,13 @@
+    <a class="list-group-item mt-2 clearfix cursor-pointer" routerLinkActive="active" [routerLink]="[recipe.id]" (click)="selectItem()">
+        <div class="row">
+            <div class="float-start col-12 col-sm-12 col-lg-8 col-xs-8">
+                <h4 class="">{{recipe.name}}</h4>
+                <p class=""> {{recipe.description}}</p>
+            </div>
+            <div class="col-12 col-sm-12 col-lg-4 col-xs-4">
+                <span class="float-end">
+                    <img [src]="recipe.imagePath" style="height: 80px; width: 80px;" />
+                </span>
+            </div>
+        </div>
+    </a>
