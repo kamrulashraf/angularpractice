@@ -6,6 +6,7 @@ export class ShopplingListService{
 
     // ingrediantChange  = new EventEmitter<Ingredients[]>();
     ingrediantChange  = new Subject<Ingredients[]>();
+    IngredientsStartEdit = new Subject<number>();
 
     ingrediantList = [
         new Ingredients("Apple", 5),
@@ -14,6 +15,10 @@ export class ShopplingListService{
 
     getIngrediantList(){
         return this.ingrediantList.slice();
+    }
+
+    getIngrediant(index : number){
+        return this.ingrediantList.slice()[index];
     }
 
     addIngrediant(data: Ingredients){
@@ -26,6 +31,16 @@ export class ShopplingListService{
     addIngrediants(data: Ingredients[]){
         this.ingrediantList.push(...data);
         // this.ingrediantChange.emit(this.ingrediantList.slice());
+        this.ingrediantChange.next(this.ingrediantList.slice());
+    }
+
+    updateIngrediants(index : number,  data: Ingredients){
+        this.ingrediantList[index] = data;
+        this.ingrediantChange.next(this.ingrediantList.slice());
+    }
+
+    deleteItem(index : number){
+        this.ingrediantList.splice(index,1);
         this.ingrediantChange.next(this.ingrediantList.slice());
     }
 

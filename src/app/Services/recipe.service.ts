@@ -1,4 +1,5 @@
 import { Injectable, EventEmitter } from '@angular/core';
+import { Subject } from 'rxjs';
 import { Recipe } from '../recipes/recipe.model';
 import { Ingredients } from '../shared/ingredients.model';
 
@@ -17,13 +18,31 @@ export class RecipeService{
         ),
     ];
 
+    recipeChanges = new Subject<Recipe[]>();
+
     
-    SelectedRecipe =  new EventEmitter<Recipe>();
+    // SelectedRecipe =  new EventEmitter<Recipe>();
+    recipeSelectEvent = new Subject<number>();
+
     getRecipe(){
       return this.recipes.slice();
     }
 
     getRecipeById(id: number){
       return this.recipes.filter(x => x.id == id).slice()[0];
+    }
+
+    updateRecipe(recipe: Recipe){
+      var index = this.recipes.findIndex(x => x.id == recipe.id);
+      if(index >= 0){
+        this.recipes[index] = recipe;
+      }
+      this.recipeChanges.next(this.recipes.slice());
+    }
+
+    addRecipe(recipe : Recipe){
+      recipe.id = this.recipes.length + 1;
+      this.recipes.push(recipe);
+      this.recipeChanges.next(this.recipes.slice());
     }
 }

@@ -17,7 +17,7 @@ import { RecipeService } from './Services/recipe.service';
 import { ShopplingListService } from './Services/shopping-list.service';
 import { RecipeHeaderComponent } from './recipes/recipe-header/recipe-header.component';
 import { RecipesEditComponent } from './recipes/recipes-edit/recipes-edit.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -39,7 +39,8 @@ import { FormsModule } from '@angular/forms';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [RecipeService, ShopplingListService],
   bootstrap: [AppComponent]

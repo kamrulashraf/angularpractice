@@ -9,6 +9,7 @@
               class="form-control"
               ngModel
               name="name"
+              required
               #newName >
           </div>
           <div class="col-sm-2 form-group">
@@ -18,15 +19,21 @@
              class="form-control"
              ngModel
              name="amount"
+             required
              #newAmount
              >
           </div>
         </div>
         <div class="row">
           <div class="col-xs-12">
-            <button class="btn btn-success m-2" type="submit">Add</button>
-            <button class="btn btn-danger m-2" type="button">Delete</button>
-            <button class="btn btn-primary m-2" type="button">Clear</button>
+            <button class="btn btn-success m-2"
+              [disabled]="!f.valid"
+              type="submit"
+            >
+              {{onEditMode == false ? "Add" : "Update"}}
+            </button>
+            <button class="btn btn-danger m-2" (click)="onDelete()" *ngIf="onEditMode" type="button">Delete</button>
+            <button class="btn btn-primary m-2" (click)="onClear()" type="button">Clear</button>
           </div>
         </div>
       </form>

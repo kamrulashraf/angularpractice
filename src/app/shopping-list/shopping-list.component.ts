@@ -68,4 +68,8 @@ export class ShoppingListComponent implements
     this.name = event.type;
     console.log(this.name);
   }
+
+  onSelectShoppingList(index : number){
+    this.shopplingListService.IngredientsStartEdit.next(index);
+  }
 }

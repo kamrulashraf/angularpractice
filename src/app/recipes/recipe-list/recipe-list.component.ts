@@ -14,12 +14,10 @@ export class RecipeListComponent implements OnInit {
 
   ngOnInit(): void {
     this.recipes = this.recipeService.getRecipe();
-  }
 
-  SelectRecipe(data: Recipe){
-    console.log(data)
-    // this.selectedRecipe.emit(data);
-    this.recipeService.SelectedRecipe.emit(data);
+    this.recipeService.recipeChanges.subscribe( recipes => {
+      this.recipes = recipes;
+    })
   }
 
 }

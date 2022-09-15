@@ -11,11 +11,12 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class RecipesComponent implements OnInit {
 
   selectedRecipe! : Recipe;
+  selectedRecipeID! : number;
   constructor(private recipeService : RecipeService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.recipeService.SelectedRecipe.subscribe((recipe) => {
-      this.selectedRecipe = recipe;
+    this.recipeService.recipeSelectEvent.subscribe((id) => {
+      this.selectedRecipeID = id;
     })
   }
 

@@ -28,8 +28,6 @@ export class AppComponent {
 
   ngAfterViewInit(){
 
-    var temp = this.shoppingListComponent.ingredients;
-    console.log(temp);
   }
 
   changeColor(){
