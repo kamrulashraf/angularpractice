@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Recipe } from './recipe.model';
 import { RecipeService } from '../Services/recipe.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -9,7 +9,6 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./recipes.component.css']
 })
 export class RecipesComponent implements OnInit {
-
   selectedRecipe! : Recipe;
   selectedRecipeID! : number;
   constructor(private recipeService : RecipeService, private router: Router, private route: ActivatedRoute) { }

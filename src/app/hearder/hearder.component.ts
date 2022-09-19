@@ -1,4 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'app-hearder',
@@ -7,7 +8,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class HearderComponent implements OnInit {
 
-  constructor() { }
+  constructor(private dataService: DataService) { }
 
   ngOnInit(): void {
   }
@@ -15,5 +16,10 @@ export class HearderComponent implements OnInit {
   @Output('loadPage') pageName : EventEmitter<string> = new EventEmitter<string>();
   LoadPage(pageName : string){
     this.pageName.emit(pageName);
+  }
+
+  onFetchRecipe(){
+    this.dataService.getRecipeList()
+      .subscribe();
   }
 }
