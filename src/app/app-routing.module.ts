@@ -6,6 +6,8 @@ import { RecipeHeaderComponent } from './recipes/recipe-header/recipe-header.com
 import { RecipeDetailComponent } from './recipes/recipe-detail/recipe-detail.component';
 import { RecipesEditComponent } from './recipes/recipes-edit/recipes-edit.component';
 import { RecipeResolverService } from './recipes/recipe-resolver.service';
+import { SigninRedirectCallbackComponent } from './signin-redirect-callback/signin-redirect-callback.component';
+import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
   {
@@ -16,6 +18,8 @@ const routes: Routes = [
   {
     path: 'Recipe',
     component: RecipesComponent,
+    canActivate: [AuthGuard],
+    resolve: [RecipeResolverService],
     children:[
       { path: '',
         component: RecipeHeaderComponent,
@@ -28,7 +32,7 @@ const routes: Routes = [
       {
         path: ':id',
         component: RecipeDetailComponent,
-        resolve: [RecipeResolverService]
+        // resolve: [RecipeResolverService]
       },
       {
         path: ":id/edit",
@@ -39,6 +43,12 @@ const routes: Routes = [
   {
     path: 'Shopping',
     component: ShoppingListComponent
+  },
+  {
+    path: 'signin-callback',
+    component: SigninRedirectCallbackComponent
+    // redirectTo: 'Recepe',
+    // pathMatch: 'full'
   }
 ];
 

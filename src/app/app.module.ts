@@ -18,7 +18,11 @@ import { ShopplingListService } from './Services/shopping-list.service';
 import { RecipeHeaderComponent } from './recipes/recipe-header/recipe-header.component';
 import { RecipesEditComponent } from './recipes/recipes-edit/recipes-edit.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { SigninRedirectCallbackComponent } from './signin-redirect-callback/signin-redirect-callback.component';
+import { LoaderSpinnersComponent } from './loader-spinners/loader-spinners.component';
+import { AuthInterceptorInterceptor } from './interceptor/auth-interceptor.interceptor';
+import { AlertBoxComponent } from './shared/alert-box/alert-box.component';
 
 
 
@@ -35,7 +39,10 @@ import { HttpClientModule } from '@angular/common/http';
     BasicAttributeDirective,
     UnlessDirective,
     RecipeHeaderComponent,
-    RecipesEditComponent
+    RecipesEditComponent,
+    SigninRedirectCallbackComponent,
+    LoaderSpinnersComponent,
+    AlertBoxComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +51,15 @@ import { HttpClientModule } from '@angular/common/http';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [RecipeService, ShopplingListService],
+  providers: [
+    RecipeService,
+    ShopplingListService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

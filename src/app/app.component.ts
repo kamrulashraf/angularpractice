@@ -1,16 +1,18 @@
-import { Component, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, AfterViewInit, OnInit } from '@angular/core';
 import { ShoppingListComponent } from './shopping-list/shopping-list.component';
+import { AuthService } from './shared/services/auth.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
 
   @ViewChild(ShoppingListComponent) shoppingListComponent! : ShoppingListComponent;
 
-  showUnless = true;
+  public userAuthenticated = false;
+
   switchTest = 3;
   title = 'practiceapp';
   colorChange = 'redcolor';
@@ -26,40 +28,18 @@ export class AppComponent {
     'background-color': 'red'
   };
 
-  ngAfterViewInit(){
-
+  constructor(private authService: AuthService){
+    // this.authService.loginChanged
+    // .subscribe(userAuthenticated => {
+    //   this.userAuthenticated = userAuthenticated;
+    // })
   }
 
-  changeColor(){
-    if(this.colorChange === 'redcolor'){
-      this.colorChange = 'bluecolor';
-      this.showParagraph = false;
-    }
-    else{
-      this.colorChange = 'redcolor';
-      this.showParagraph = true;
-    }
-  }
-  
-  outFunc(event : any){
-    console.log(event);
-  }
-
-
-  updateGlobalObj(){
-    this.appObj = {
-      type : "update",
-      name : 'test'
-    }
-  }
-
-  showPage(page: string){
-      debugger
-      this.loadedPage = page;
-  }
-
-  toggleUnless(){
-    this.showUnless = !this.showUnless;
+  ngOnInit(): void {
+    // this.authService.isAuthenticated()
+    // .then(userAuthenticated => {
+    //   this.userAuthenticated = userAuthenticated;
+    // })
   }
 }
 
