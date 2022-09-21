@@ -1,6 +1,8 @@
-import { Component, ViewChild, AfterViewInit, OnInit } from '@angular/core';
+import { Component, ViewChild, AfterViewInit, OnInit, ComponentFactoryResolver } from '@angular/core';
 import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 import { AuthService } from './shared/services/auth.service';
+import { AlertContainerDirective } from './alert-container.directive';
+import { AlertBoxComponent } from './shared/alert-box/alert-box.component';
 
 @Component({
   selector: 'app-root',
@@ -11,6 +13,7 @@ export class AppComponent implements OnInit{
 
   @ViewChild(ShoppingListComponent) shoppingListComponent! : ShoppingListComponent;
 
+  @ViewChild(AlertContainerDirective, {static: true}) alertContainer! : AlertContainerDirective;
   public userAuthenticated = false;
 
   switchTest = 3;
@@ -29,17 +32,24 @@ export class AppComponent implements OnInit{
   };
 
   constructor(private authService: AuthService){
-    // this.authService.loginChanged
-    // .subscribe(userAuthenticated => {
-    //   this.userAuthenticated = userAuthenticated;
-    // })
+   
   }
 
   ngOnInit(): void {
-    // this.authService.isAuthenticated()
-    // .then(userAuthenticated => {
-    //   this.userAuthenticated = userAuthenticated;
-    // })
+    this.showErrorMessage();
   }
+
+  showErrorMessage(){
+    const viewContainerRef = this.alertContainer.viewContainerRef;
+    viewContainerRef.clear();
+
+    const componentRef = viewContainerRef.createComponent<AlertBoxComponent>(AlertBoxComponent);
+    componentRef.instance.message = "This is an error";
+
+    componentRef.instance.close.subscribe( () => {
+      viewContainerRef.clear();
+    })
+  }
+  
 }
 

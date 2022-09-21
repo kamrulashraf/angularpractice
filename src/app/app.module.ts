@@ -23,6 +23,7 @@ import { SigninRedirectCallbackComponent } from './signin-redirect-callback/sign
 import { LoaderSpinnersComponent } from './loader-spinners/loader-spinners.component';
 import { AuthInterceptorInterceptor } from './interceptor/auth-interceptor.interceptor';
 import { AlertBoxComponent } from './shared/alert-box/alert-box.component';
+import { AlertContainerDirective } from './alert-container.directive';
 
 
 
@@ -42,7 +43,8 @@ import { AlertBoxComponent } from './shared/alert-box/alert-box.component';
     RecipesEditComponent,
     SigninRedirectCallbackComponent,
     LoaderSpinnersComponent,
-    AlertBoxComponent
+    AlertBoxComponent,
+    AlertContainerDirective
   ],
   imports: [
     BrowserModule,

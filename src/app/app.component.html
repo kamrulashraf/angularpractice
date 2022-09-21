@@ -1,4 +1,9 @@
 <app-hearder></app-hearder>
+<div *ng-If="">
+  <app-alert-box></app-alert-box>
+</div>
+
+<ng-template appAlertContainer></ng-template>
 <div class="row">
   <div class="col col-xs-12">
     <router-outlet></router-outlet>
