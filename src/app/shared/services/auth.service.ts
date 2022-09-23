@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { UserManager, User, UserManagerSettings } from 'oidc-client';
 import { Constants } from '../constant.model';
 import { Subject } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,9 +12,9 @@ export class AuthService {
   private _user! : User;
   private get idpSettings() : UserManagerSettings {
     return {
-      authority: Constants.idpAuthority,
-      client_id: Constants.clientId,
-      redirect_uri: `${Constants.clientRoot}/signin-callback`,
+      authority: environment.idpAuthority,
+      client_id: environment.clientId,
+      redirect_uri: `${environment.clientRoot}/signin-callback`,
       scope: "openid profile email angularapi",
       response_type: "code",
       post_logout_redirect_uri: `${Constants.clientRoot}/signout-callback`

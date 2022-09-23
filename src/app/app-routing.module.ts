@@ -16,39 +16,12 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'Recipe',
-    component: RecipesComponent,
-    canActivate: [AuthGuard],
-    resolve: [RecipeResolverService],
-    children:[
-      { path: '',
-        component: RecipeHeaderComponent,
-        pathMatch: 'full'
-      },
-      {
-        path:'new',
-        component: RecipesEditComponent
-      },
-      {
-        path: ':id',
-        component: RecipeDetailComponent,
-        // resolve: [RecipeResolverService]
-      },
-      {
-        path: ":id/edit",
-        component: RecipesEditComponent
-      }
-    ]
-  },
-  {
-    path: 'Shopping',
-    component: ShoppingListComponent
+    path: 'recipe',
+    loadChildren: () => import('./recipes/recipes.component').then(m => m.RecipesComponent),
   },
   {
     path: 'signin-callback',
     component: SigninRedirectCallbackComponent
-    // redirectTo: 'Recepe',
-    // pathMatch: 'full'
   }
 ];
 
