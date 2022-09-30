@@ -3,7 +3,7 @@ import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http"
 import { RecipeService } from './Services/recipe.service';
 import { Recipe } from './recipes/recipe.model';
 import { catchError, tap, throwError } from "rxjs";
-import { AuthService } from './shared/services/auth.service';
+import { AuthService } from './auththentication/services/auth.service';
 
 @Injectable({providedIn: "root"})
 export class DataService {
@@ -15,13 +15,19 @@ export class DataService {
     ) {}
 
     getRecipeList(){
+        debugger
         return this.http.get<Recipe[]>("https://localhost:7006/api/Recipe")
             .pipe(
                 catchError(this.handleError),
                 tap( data =>{
-                    this.recipeService.setRecipe(data);
+                    // this.recipeService.setRecipe(data);
+                    
                 })
             );
+    }
+
+    updateRecipe(recipe: Recipe){
+        return this.http.put<Recipe>("https://localhost:7006/api/Recipe", recipe);
     }
 
     handleError(err: HttpErrorResponse){

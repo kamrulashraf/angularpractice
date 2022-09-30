@@ -3,6 +3,11 @@ import { UntypedFormArray, UntypedFormControl, UntypedFormGroup, Validators } fr
 import { Recipe } from '../recipe.model';
 import { RecipeService } from '../../Services/recipe.service';
 import { ActivatedRoute, Router, Params } from '@angular/router';
+import { Observable } from 'rxjs';
+import { AppState } from '../../app.reducer';
+import { Store } from '@ngrx/store';
+import { RecipeState } from '../store/recipe.reducer';
+import { updateRecipe } from '../store/recipe.action';
 
 @Component({
   selector: 'app-recipes-edit',
@@ -15,7 +20,10 @@ export class RecipesEditComponent implements OnInit {
   selectedRecipeId! : number;
   constructor(private recipeService: RecipeService,
      private route: ActivatedRoute,
-     private router: Router) { }
+     private router: Router,
+     private store: Store <AppState>
+  ) { }
+  
   ngOnInit(): void {
     this.route.params.subscribe((param : Params) =>{
       this.selectedRecipeId = +param['id'];
@@ -35,20 +43,26 @@ export class RecipesEditComponent implements OnInit {
     let imagePath = '';
     let ingredients = new UntypedFormArray([]);
     let id = -1;
-    debugger
     if(this.onEditMode){
       let recipe : Recipe;
-      recipe = this.recipeService.getRecipeById(this.selectedRecipeId);
-      id = recipe.id;
-      name = recipe.name;
-      description = recipe.description;
-      imagePath = recipe.imagePath;
-      recipe.ingredients.forEach(element => {
-        ingredients.push(new UntypedFormGroup({
-          name: new UntypedFormControl(element.name, Validators.required),
-          amount: new UntypedFormControl(element.amount, [Validators.required, Validators.pattern(/^[0-9]+[0-9]*$/)])
-        }));
-      });
+      // recipe = this.recipeService.getRecipeById(this.selectedRecipeId);
+      this.store.select('recipes').subscribe( data =>{
+        recipe = data.recipes.filter(x => x.id == this.selectedRecipeId)?.[0];
+        id = recipe.id;
+        name = recipe.name;
+        description = recipe.description;
+        imagePath = recipe.imagePath;
+
+        recipe.ingredients.forEach(element => {
+          ingredients.push(new UntypedFormGroup({
+            name: new UntypedFormControl(element.name, Validators.required),
+            amount: new UntypedFormControl(element.amount, [Validators.required, Validators.pattern(/^[0-9]+[0-9]*$/)])
+          }));
+        });
+
+      })
+      
+     
     }
 
     this.recipeModel = new UntypedFormGroup({
@@ -73,7 +87,8 @@ export class RecipesEditComponent implements OnInit {
 
   onSubmit(){
     if(this.onEditMode){
-      this.recipeService.updateRecipe(this.recipeModel.value);
+      // this.recipeService.updateRecipe(this.recipeModel.value);
+      this.store.dispatch(updateRecipe({ recipe: this.recipeModel.value}));
       this.router.navigate(['../'], {relativeTo: this.route});
     } else{
       this.recipeService.addRecipe(this.recipeModel.value);

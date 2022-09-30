@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { UserManager, User, UserManagerSettings } from 'oidc-client';
-import { Constants } from '../constant.model';
+import { Constants } from '../../shared/constant.model';
 import { Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 

@@ -1,6 +1,6 @@
 import { Component, ViewChild, AfterViewInit, OnInit, ComponentFactoryResolver } from '@angular/core';
 import { ShoppingListComponent } from './shopping-list/shopping-list.component';
-import { AuthService } from './shared/services/auth.service';
+import { AuthService } from './auththentication/services/auth.service';
 import { AlertContainerDirective } from './alert-container.directive';
 import { AlertBoxComponent } from './shared/alert-box/alert-box.component';
 

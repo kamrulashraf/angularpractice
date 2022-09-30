@@ -6,8 +6,8 @@ import { RecipeHeaderComponent } from './recipes/recipe-header/recipe-header.com
 import { RecipeDetailComponent } from './recipes/recipe-detail/recipe-detail.component';
 import { RecipesEditComponent } from './recipes/recipes-edit/recipes-edit.component';
 import { RecipeResolverService } from './recipes/recipe-resolver.service';
-import { SigninRedirectCallbackComponent } from './signin-redirect-callback/signin-redirect-callback.component';
-import { AuthGuard } from './auth.guard';
+import { SigninRedirectCallbackComponent } from './auththentication/signin-redirect-callback/signin-redirect-callback.component';
+import { AuthGuard } from './auththentication/auth.guard';
 
 const routes: Routes = [
   {

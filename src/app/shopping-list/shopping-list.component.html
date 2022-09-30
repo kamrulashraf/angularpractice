@@ -12,7 +12,7 @@
         <a
           class="list-group-item"
           style="cursor: pointer"
-          *ngFor="let ingredient of ingredients; let i = index"
+          *ngFor="let ingredient of (ingredients | async)?.ingrediantList; let i = index"
           (click)="onSelectShoppingList(i)"
         >
           {{ ingredient.name }} ({{ ingredient.amount }})

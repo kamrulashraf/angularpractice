@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { DataService } from '../data.service';
-import { AuthService } from '../shared/services/auth.service';
+import { AuthService } from '../auththentication/services/auth.service';
 
 @Component({
   selector: 'app-hearder',
@@ -38,8 +38,8 @@ export class HearderComponent implements OnInit {
   }
 
   onFetchRecipe(){
-    this.dataService.getRecipeList()
-      .subscribe();
+    // this.dataService.getRecipeList()
+    //   .subscribe();
   }
 
   login(){
